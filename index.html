@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#dceeff" />
+  <title>for my favorite person ♡</title>
+  <style>
+    :root {
+      --powder: #dceeff;
+      --ice: #f5faff;
+      --sky: #a9d2ff;
+      --blue: #5b9de6;
+      --deep: #173d69;
+      --navy: #102b4c;
+      --ink: #254565;
+      --muted: #6f8ba8;
+      --white: #ffffff;
+      --line: rgba(64, 119, 177, .18);
+      --shadow: 0 22px 70px rgba(36, 83, 132, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,255,255,.95), transparent 30%),
+        radial-gradient(circle at 88% 78%, rgba(169,210,255,.45), transparent 28%),
+        linear-gradient(145deg, #edf7ff 0%, #dceeff 48%, #eaf5ff 100%);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    button { font: inherit; }
+    button:focus-visible { outline: 3px solid #3e82c9; outline-offset: 4px; }
+
+    .sky {
+      position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    .sparkle {
+      position: absolute; color: rgba(69, 130, 194, .55);
+      animation: twinkle 3.8s ease-in-out infinite;
+      user-select: none;
+    }
+    .sparkle:nth-child(1) { top: 12%; left: 11%; font-size: 19px; }
+    .sparkle:nth-child(2) { top: 23%; right: 13%; font-size: 13px; animation-delay: .8s; }
+    .sparkle:nth-child(3) { bottom: 18%; left: 16%; font-size: 15px; animation-delay: 1.4s; }
+    .sparkle:nth-child(4) { bottom: 27%; right: 10%; font-size: 21px; animation-delay: .4s; }
+    .sparkle:nth-child(5) { top: 58%; left: 7%; font-size: 10px; animation-delay: 2s; }
+    .sparkle:nth-child(6) { top: 8%; right: 28%; font-size: 12px; animation-delay: 1.1s; }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: .3; transform: scale(.8) rotate(0); }
+      50% { opacity: 1; transform: scale(1.18) rotate(18deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: scale(.86); }
+      70% { transform: scale(1.035); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .site-shell {
+      position: relative; z-index: 1; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 34px 18px;
+    }
+    .screen {
+      display: none;
+      width: min(100%, 760px);
+      animation: fadeUp .65s ease both;
+    }
+    .screen.active { display: block; }
+    .screen-inner { text-align: center; }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    h1, h2 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -.035em;
+      line-height: 1.15;
+    }
+    h1 { font-size: clamp(2.35rem, 7vw, 4.5rem); }
+    h2 { font-size: clamp(2rem, 5.5vw, 3.2rem); }
+    .subtitle {
+      max-width: 520px; margin: 16px auto 0;
+      color: var(--muted); font-size: clamp(.95rem, 2.5vw, 1.08rem);
+      line-height: 1.8;
+    }
+    .small-heart { color: #6ca9e8; }
+
+    .primary-btn, .secondary-btn {
+      border: 0; border-radius: 999px; cursor: pointer;
+      padding: 14px 23px; transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      font-weight: 700; letter-spacing: .01em;
+    }
+    .primary-btn {
+      color: white; background: linear-gradient(135deg, #5d9fe8, #2d69ad);
+      box-shadow: 0 12px 28px rgba(48, 106, 174, .24);
+    }
+    .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(48, 106, 174, .3); }
+    .secondary-btn {
+      color: var(--deep); background: rgba(255,255,255,.72);
+      border: 1px solid var(--line);
+    }
+    .secondary-btn:hover { transform: translateY(-2px); background: white; }
+    .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 11px; margin-top: 30px; }
+
+    /* Opening gift */
+    .gift-stage {
+      position: relative; width: 220px; height: 210px; margin: 6px auto 24px;
+      display: grid; place-items: center; cursor: pointer;
+      border: 0; background: transparent; padding: 0;
+      animation: float 4s ease-in-out infinite;
+    }
+    .gift-stage:focus-visible { border-radius: 20px; }
+    .gift-shadow {
+      position: absolute; width: 190px; height: 23px; bottom: 13px;
+      border-radius: 50%; background: rgba(37, 85, 139, .13); filter: blur(8px);
+    }
+    .gift-box {
+      position: absolute; width: 150px; height: 112px; bottom: 35px;
+      border-radius: 7px 7px 12px 12px;
+      background: linear-gradient(135deg, #a8d2ff 0%, #79b4f4 55%, #5b9de6 100%);
+      box-shadow: inset -9px -5px 0 rgba(36, 100, 164, .12), 0 14px 28px rgba(53, 111, 176, .2);
+    }
+    .gift-box::before {
+      content: ""; position: absolute; left: 60px; top: 0; height: 100%; width: 29px;
+      background: linear-gradient(90deg, #f7fbff, #dceeff 55%, #fff);
+      box-shadow: 0 0 12px rgba(255,255,255,.45);
+    }
+    .gift-box::after {
+      content: ""; position: absolute; left: 0; right: 0; top: 22px; height: 15px;
+      background: rgba(255,255,255,.35);
+    }
+    .gift-lid {
+      position: absolute; z-index: 2; width: 174px; height: 34px; bottom: 139px;
+      border-radius: 7px; background: linear-gradient(135deg, #8fc4fb, #5c9ce3);
+      box-shadow: inset 0 -4px 0 rgba(31, 87, 147, .12), 0 5px 12px rgba(53, 111, 176, .13);
+      transition: transform .8s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
+    }
+    .gift-lid::before {
+      content: ""; position: absolute; left: 72px; top: 0; height: 100%; width: 29px;
+      background: linear-gradient(90deg, #f7fbff, #dceeff 55%, #fff);
+    }
+    .bow {
+      position: absolute; z-index: 3; width: 65px; height: 43px; bottom: 162px;
+      transition: transform .8s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
+    }
+    .bow::before, .bow::after {
+      content: ""; position: absolute; width: 33px; height: 25px; top: 5px;
+      border: 7px solid #f7fbff; border-radius: 60% 60% 45% 60%;
+      background: rgba(255,255,255,.2);
+    }
+    .bow::before { left: 0; transform: rotate(24deg); }
+    .bow::after { right: 0; transform: rotate(-24deg); }
+    .bow-knot {
+      position: absolute; z-index: 4; width: 17px; height: 17px; border-radius: 50%;
+      background: white; left: 24px; top: 15px;
+    }
+    .gift-stage.opened { animation: none; }
+    .gift-stage.opened .gift-lid { transform: translate(-15px, -62px) rotate(-19deg); }
+    .gift-stage.opened .bow { transform: translate(-18px, -69px) rotate(-18deg); opacity: .75; }
+    .gift-stage.opened .gift-box { animation: pop .5s ease; }
+    .gift-hint { margin: -3px 0 0; color: #7195b9; font-size: .82rem; }
+
+    /* Cards and content */
+    .content-card {
+      margin: 30px auto 0; padding: clamp(23px, 5vw, 42px);
+      text-align: left; background: rgba(255,255,255,.77);
+      border: 1px solid rgba(255,255,255,.9); border-radius: 24px;
+      box-shadow: var(--shadow); backdrop-filter: blur(12px);
+    }
+    .gift-icon {
+      width: 78px; height: 78px; margin: 0 auto 20px; display: grid; place-items: center;
+      border-radius: 24px; background: linear-gradient(145deg, #edf7ff, #cce5ff);
+      color: #397bbd; font-size: 2rem; box-shadow: inset 0 0 0 1px rgba(83,145,204,.12);
+    }
+    .card-kicker {
+      margin: 0 0 10px; color: var(--blue); font-size: .7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .16em;
+    }
+    .gift-title { font: 500 clamp(1.65rem, 4vw, 2.35rem)/1.2 Georgia, serif; color: var(--navy); margin: 0; }
+    .card-copy { color: #5f7d9b; line-height: 1.9; font-size: 1rem; }
+    .quote-line {
+      margin: 22px 0; padding: 16px 18px; border-left: 3px solid #8fc4fb;
+      color: var(--deep); background: rgba(220,238,255,.5); border-radius: 0 12px 12px 0;
+      font-family: Georgia, serif; font-size: 1.16rem; line-height: 1.6;
+    }
+
+    .letter-paper {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #fff 0%, #f8fbff 100%);
+      border: 1px solid rgba(91,157,230,.15); border-radius: 5px 20px 20px 20px;
+      box-shadow: 0 18px 48px rgba(37, 82, 128, .1);
+      padding: clamp(24px, 6vw, 48px); margin: 30px auto 0; text-align: left;
+    }
+    .letter-paper::before {
+      content: "♡"; position: absolute; top: 6px; right: 19px;
+      color: rgba(91,157,230,.17); font: 5rem Georgia, serif; transform: rotate(12deg);
+    }
+    .letter-label {
+      color: #7ba6cf; text-transform: uppercase; letter-spacing: .18em;
+      font-size: .68rem; font-weight: 800; margin-bottom: 23px;
+    }
+    .letter-body {
+      white-space: pre-line; color: #365573; line-height: 2; font-size: 1rem;
+      position: relative; z-index: 1;
+    }
+    .letter-sign { margin-top: 25px; color: #477eaf; font: italic 1.25rem Georgia, serif; }
+
+    .closing-card {
+      margin: 30px auto 0; padding: clamp(26px, 6vw, 48px);
+      border-radius: 28px; color: #eaf5ff;
+      background: linear-gradient(145deg, #173d69 0%, #102b4c 65%, #234f7e 100%);
+      box-shadow: 0 25px 70px rgba(16,43,76,.25);
+      position: relative; overflow: hidden;
+    }
+    .closing-card::before, .closing-card::after {
+      content: "✦"; position: absolute; color: rgba(208,232,255,.45); font-size: 1.5rem;
+      animation: twinkle 3.2s ease-in-out infinite;
+    }
+    .closing-card::before { top: 22px; left: 25px; }
+    .closing-card::after { bottom: 24px; right: 28px; animation-delay: 1s; }
+    .closing-card h2 { color: white; }
+    .closing-card .eyebrow { color: #9dceff; }
+    .closing-copy { color: #d3e7fa; line-height: 1.95; max-width: 510px; margin: 20px auto 0; }
+    .closing-emphasis { color: white; font: italic 1.35rem/1.6 Georgia, serif; margin: 24px auto 0; }
+    .signature { color: #a8d2ff; font-family: Georgia, serif; font-style: italic; margin-top: 26px; }
+    .closing-card .primary-btn { background: #eff7ff; color: #173d69; box-shadow: none; }
+    .closing-card .primary-btn:hover { background: white; }
+
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 5; height: 3px;
+      background: rgba(255,255,255,.45);
+    }
+    .progress-fill {
+      height: 100%; width: 25%; background: linear-gradient(90deg, #6ba9e9, #173d69);
+      transition: width .5s ease;
+    }
+    .footer-note {
+      text-align: center; color: #8ba6c1; font-size: .72rem;
+      letter-spacing: .08em; margin-top: 28px;
+    }
+
+    @media (max-width: 520px) {
+      .site-shell { padding: 28px 16px; align-items: flex-start; }
+      .screen { margin: auto 0; }
+      .gift-stage { transform: scale(.92); margin-top: 0; margin-bottom: 15px; }
+      .gift-stage:hover { transform: scale(.92); }
+      .content-card { border-radius: 20px; }
+      .actions { margin-top: 24px; }
+      .primary-btn, .secondary-btn { width: 100%; max-width: 330px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important; transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <span class="sparkle">✦</span><span class="sparkle">✧</span>
+    <span class="sparkle">✦</span><span class="sparkle">✧</span>
+    <span class="sparkle">·</span><span class="sparkle">✦</span>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="site-shell">
+    <!-- SCREEN 1: OPENING -->
+    <section class="screen active" id="screen1" aria-labelledby="openingTitle">
+      <div class="screen-inner">
+        <p class="eyebrow">a little birthday surprise</p>
+        <button class="gift-stage" id="giftBox" aria-label="Open the blue birthday gift box">
+          <span class="gift-shadow"></span>
+          <span class="gift-box"></span>
+          <span class="gift-lid"></span>
+          <span class="bow"><span class="bow-knot"></span></span>
+        </button>
+        <h1 id="openingTitle">happy birthday,<br>my favorite person <span class="small-heart">♡</span></h1>
+        <p class="subtitle">i made something special just for you, baby.</p>
+        <p class="gift-hint" id="giftHint">tap the gift box to open it ♡</p>
+        <div class="actions">
+          <button class="primary-btn" id="openGiftBtn">let's open your surprise ♡</button>
+        </div>
+        <p class="footer-note">made with love, just for you · tami ♡</p>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: THE GIFT ALREADY RECEIVED -->
+    <section class="screen" id="screen2" aria-labelledby="firstGiftTitle">
+      <div class="screen-inner">
+        <p class="eyebrow">your first birthday surprise</p>
+        <div class="content-card">
+          <div class="gift-icon" aria-hidden="true">✧</div>
+          <p class="card-kicker">a little wish of yours</p>
+          <h2 class="gift-title" id="firstGiftTitle">something you've been wanting ♡</h2>
+          <p class="card-copy">remember that one vehicle you told me you wanted?</p>
+          <div class="quote-line">“you mentioned it once, and i remembered.”</div>
+          <p class="card-copy">well, baby... consider this my little way of making that wish come true.</p>
+          <p class="card-copy">a little gift for your adventures in the city. ♡</p>
+          <p class="card-copy">i hope it makes your time in the city even more fun, birthday boy.</p>
+        </div>
+        <div class="actions">
+          <button class="primary-btn" data-next="3">there's something else for you →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: PERSONAL LETTER -->
+    <section class="screen" id="screen3" aria-labelledby="letterTitle">
+      <div class="screen-inner">
+        <p class="eyebrow">a little piece of my heart</p>
+        <h2 id="letterTitle">a letter for you,<br>my love ♡</h2>
+        <p class="subtitle">a few things i want you to know on your special day.</p>
+
+        <article class="letter-paper">
+          <div class="letter-label">to my birthday boy · with love</div>
+          <div class="letter-body" id="personalLetter">to my aggie, my favorite boy. ♡
+
+happy birthday, sayangkuuu!
+
+i’m so happy that you were born, and even happier that life somehow brought me to you. sometimes i still can’t believe that someone who used to be a stranger has become someone this special to me. i’m so grateful that i get to know you, love you, and be a part of your life.
+
+sayang, i hope you know how precious you are to me. i love your kind heart, your clingy side, the way you get excited over little things, and even how soft-hearted you are. i love how you express your love, and i wish you could see yourself through my eyes, even just once, so you’d understand why you’re so easy to love.
+
+i know you tend to overthink things sometimes, and there are days when you feel like you’re not good enough. but baby, please be kinder to yourself. you don’t have to be perfect, and you don’t always have to be strong. you can cry, you can feel tired, and you can have bad days. none of those things make you any less deserving of love. i hope you slowly learn to love yourself the way you deserve to be loved.
+
+for your new age, i pray that Allah always protects you wherever you go, gives you good health, a peaceful heart, a calmer mind, and a long, blessed life. may all your affairs be made easier, your hard work lead to beautiful things, and your dreams come true one by one. semoga Allah selalu menjauhkan kamu dari hal-hal buruk, mempertemukan kamu dengan orang-orang yang tulus, dan memberikan kamu banyak alasan untuk bahagia. i hope this year brings you more peace, more laughter, and more reasons to be proud of yourself.
+
+and selfishly, i hope i get to be part of many more birthdays of yours. i want more memories with you, more silly conversations, more random calls, and more moments when i can finally hold you instead of just wishing i could. i know long distance isn’t always easy, but i hope we keep learning, growing, and choosing to understand each other along the way.
+
+i can’t promise that everything will always be perfect, but i want to keep loving you, learning about you, and making this relationship a safe place for both of us. whenever your mind gets too loud, please remember that you don’t have to face everything alone.
+
+thank you for being you, aggie. i’m proud of you for making it this far, even through the days that weren’t easy. please take care of yourself for me, okay? i want you to live a long, happy life and experience all the beautiful things you deserve.
+
+happy birthday, my baby. i’m so, so glad you were born. may life be gentle with your heart, and may you never forget how loved you are.
+
+i love you more than these words could ever explain.
+
+always rooting for you,
+
+your tami. ♡</div>
+          <div class="letter-sign">always yours, ♡</div>
+        </article>
+        <div class="actions">
+          <button class="primary-btn" data-next="4">one more thing, baby →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: CLOSING SURPRISE -->
+    <section class="screen" id="screen4" aria-labelledby="closingTitle">
+      <div class="screen-inner">
+        <p class="eyebrow">wait... there's more</p>
+        <div class="closing-card">
+          <p class="eyebrow">one last little surprise</p>
+          <h2 id="closingTitle">WAITTT BABY,<br>I'M NOT DONE YET 😭💙</h2>
+          <p class="closing-copy">there's another little surprise coming your way later today. one is something sweet, and the other is something beautiful, both picked just for you.</p>
+          <p class="closing-emphasis">can you wait a little longer for me, baby? 🥺</p>
+          <p class="closing-copy">i promise there's still a little more birthday love coming your way.</p>
+          <p class="closing-copy">i love youuu, birthday boy ♡</p>
+          <div class="signature">with all my love, always — tami ♡</div>
+          <div class="actions">
+            <button class="primary-btn" id="replayBtn">relive your surprise ↻</button>
+          </div>
+        </div>
+        <p class="footer-note">you are loved more than you know ♡</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const screens = [...document.querySelectorAll(".screen")];
+    const progressFill = document.getElementById("progressFill");
+    const giftBox = document.getElementById("giftBox");
+    const openGiftBtn = document.getElementById("openGiftBtn");
+    const giftHint = document.getElementById("giftHint");
+    let currentScreen = 1;
+    let giftOpened = false;
+
+    function showScreen(number) {
+      currentScreen = number;
+      screens.forEach((screen, index) => {
+        const active = index === number - 1;
+        screen.classList.toggle("active", active);
+        screen.setAttribute("aria-hidden", String(!active));
+      });
+      progressFill.style.width = `${number * 25}%`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      const heading = document.querySelector(`#screen${number} h1, #screen${number} h2`);
+      if (heading) {
+        window.setTimeout(() => heading.setAttribute("tabindex", "-1"), 50);
+      }
+    }
+
+    function openGift() {
+      if (!giftOpened) {
+        giftOpened = true;
+        giftBox.classList.add("opened");
+        giftHint.textContent = "a little birthday magic, just for you ♡";
+        openGiftBtn.textContent = "continue, birthday boy →";
+        return;
+      }
+      showScreen(2);
+    }
+
+    giftBox.addEventListener("click", openGift);
+    openGiftBtn.addEventListener("click", openGift);
+
+    document.querySelectorAll("[data-next]").forEach(button => {
+      button.addEventListener("click", () => showScreen(Number(button.dataset.next)));
+    });
+
+    document.getElementById("replayBtn").addEventListener("click", () => {
+      giftOpened = false;
+      giftBox.classList.remove("opened");
+      giftHint.textContent = "tap the gift box to open it ♡";
+      openGiftBtn.textContent = "let's open your surprise ♡";
+      showScreen(1);
+    });
+
+    // Optional: paste your own birthday letter into the #personalLetter element above.
+    showScreen(1);
+  </script>
+</body>
+</html>
